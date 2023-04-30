@@ -1,0 +1,141 @@
+.Article {
+  transition: all 500ms ease;
+  width: 100vw;
+  max-width: 940px;
+  height: 140px;
+  padding: 15px 15px 20px 20px;
+
+  background: #ffffff;
+  border-radius: 5px;
+
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.Article-main {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.Title {
+  color: #1890ff;
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.Title-rate {
+  padding: 0 5px 0 10px;
+  font-size: 15px;
+  color: #ff0707;
+}
+
+.anticon {
+  line-height: 2px;
+  padding-bottom: 5px;
+}
+
+.Title-rate-count {
+  font-size: 16px;
+  line-height: 22px;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.genres-list {
+  list-style-type: none;
+  display: flex;
+  gap: 8px;
+  overflow: visible;
+  flex-wrap: wrap;
+}
+
+.genres-list li {
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  padding: 4px 5px 2px 5px;
+}
+
+.genres-list :first-child {
+  border: 1px solid rgba(0, 0, 0, 0.75);
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.genres-item {
+  min-width: 20px;
+  min-height: 20px;
+  width: fit-content;
+  height: fit-content;
+  font-size: 12px;
+  line-height: 15px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.description {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align-last: left;
+  font-size: 12px;
+  line-height: 22px;
+  color: rgba(0, 0, 0, 0.75);
+  height: auto;
+  overflow: hidden;
+}
+
+.Article-author {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-right: 65px;
+  justify-content: right;
+  text-align: right;
+}
+
+.author-name {
+  white-space: wrap;
+  font-size: 18px;
+  line-height: 28px;
+}
+.created {
+  font-size: 12px;
+  line-height: 22px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.author-img {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 50%;
+  top: 0;
+  right: 0;
+}
+
+@media screen and (max-width: 1000px) {
+  .Article {
+    max-width: 700px;
+  }
+
+  .Article-main {
+    width: 65%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .Article {
+    max-width: 500px;
+  }
+
+  .Article-main {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .Article {
+    max-width: 400px;
+  }
+}

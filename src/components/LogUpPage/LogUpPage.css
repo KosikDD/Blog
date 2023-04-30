@@ -1,0 +1,154 @@
+.Logup {
+  transition: all 500ms ease;
+
+  margin: 60px 0 70px 0;
+  background: #ffffff;
+  padding: 48px 32px;
+
+  border: 1px solid #d9d9d9;
+  box-shadow: 0px 22px 106px rgba(0, 0, 0, 0.07), 0px 9.19107px 44.2843px rgba(0, 0, 0, 0.0503198),
+    0px 4.91399px 23.6765px rgba(0, 0, 0, 0.0417275), 0px 2.75474px 13.2728px rgba(0, 0, 0, 0.035),
+    0px 1.46302px 7.04911px rgba(0, 0, 0, 0.0282725), 0px 0.608796px 2.93329px rgba(0, 0, 0, 0.0196802);
+  border-radius: 6px;
+}
+
+.Logup-form {
+  transition: all 500ms ease;
+  width: 340px;
+  height: 550px;
+  display: flex;
+  flex-direction: column;
+}
+
+.Logup-form input {
+  transition: all 500ms ease;
+  width: 340px;
+  height: 40px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 0 16px;
+}
+
+input[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+}
+
+.Logup-form h1 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+
+  text-align: center;
+
+  padding-bottom: 25px;
+}
+
+.Logup-span {
+  color: #262626;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  padding-bottom: 2px;
+  position: relative;
+}
+
+.Logup-form p {
+  position: absolute;
+  color: #f5222d;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  bottom: -60px;
+}
+
+.Logup-agree p {
+  bottom: -16px;
+}
+
+.Logup-btn {
+  transition: all 500ms ease;
+  background: #1890ff;
+  color: #ffffff;
+  border-radius: 4px;
+  width: 340px;
+  height: 40px;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.Logup-info {
+  padding-top: 10px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+
+  text-align: center;
+
+  color: #8c8c8c;
+}
+
+.Logup-info a {
+  color: #1890ff;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+}
+
+.Logup-info a::after {
+  position: absolute;
+  bottom: 0;
+  left: 3px;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: '.';
+  color: transparent;
+  background: #1890ff;
+  height: 1px;
+  transition: all 500ms ease;
+}
+
+.Logup-info a:hover::after {
+  width: 90%;
+}
+
+.Logup-agree {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  margin: 20px 0;
+}
+
+.Logup-agree::before {
+  position: absolute;
+  top: -15px;
+  margin: auto;
+  width: 100%;
+  content: '.';
+  color: transparent;
+  background: #e8e8e8;
+  height: 1px;
+}
+
+@media (max-width: 520px) {
+  .Logup-form {
+    width: 300px;
+  }
+  .Logup-form input {
+    width: 300px;
+  }
+  .Logup-btn {
+    width: 300px;
+  }
+}

@@ -1,0 +1,89 @@
+.Profile {
+  transition: all 500ms ease;
+
+  margin: 60px 0 70px 0;
+  background: #ffffff;
+  padding: 48px 32px;
+
+  border: 1px solid #d9d9d9;
+  box-shadow: 0px 22px 106px rgba(0, 0, 0, 0.07), 0px 9.19107px 44.2843px rgba(0, 0, 0, 0.0503198),
+    0px 4.91399px 23.6765px rgba(0, 0, 0, 0.0417275), 0px 2.75474px 13.2728px rgba(0, 0, 0, 0.035),
+    0px 1.46302px 7.04911px rgba(0, 0, 0, 0.0282725), 0px 0.608796px 2.93329px rgba(0, 0, 0, 0.0196802);
+  border-radius: 6px;
+}
+
+.Profile-form {
+  transition: all 500ms ease;
+  width: 340px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+}
+
+.Profile-form input {
+  transition: all 500ms ease;
+  width: 340px;
+  height: 40px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 0 16px;
+}
+
+.Profile-form h1 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+
+  text-align: center;
+
+  padding-bottom: 25px;
+}
+
+.Profile-span {
+  color: #262626;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  padding-bottom: 2px;
+  position: relative;
+}
+
+.Profile-form p {
+  position: absolute;
+  color: #f5222d;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  bottom: -60px;
+}
+
+.Profile-btn {
+  margin-top: 10px;
+  transition: all 500ms ease;
+  background: #1890ff;
+  color: #ffffff;
+  border-radius: 4px;
+  width: 340px;
+  height: 40px;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+}
+
+@media (max-width: 520px) {
+  .Profile-form {
+    width: 300px;
+  }
+  .Profile-form input {
+    width: 300px;
+  }
+  .Profile-btn {
+    width: 300px;
+  }
+}

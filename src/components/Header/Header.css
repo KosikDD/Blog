@@ -1,0 +1,146 @@
+.App-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 80px;
+  background: #fff;
+  padding: 0 80px;
+
+  transition: all 500ms ease;
+}
+
+.App-header-title {
+  text-decoration: none;
+  position: relative;
+  cursor: pointer;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  color: rgba(0, 0, 0, 0.85);
+  transition: all 500ms ease;
+}
+
+.App-header-title::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: '.';
+  color: transparent;
+  background: rgb(112, 112, 112);
+  height: 1px;
+  transition: all 500ms ease;
+}
+
+.App-header-title:hover::after {
+  width: 100%;
+}
+
+.App-header-btns {
+  display: flex;
+  gap: 25px;
+}
+
+.App-header-btns button {
+  cursor: pointer;
+  width: 90px;
+  height: 40px;
+  background-color: inherit;
+  border-radius: 5px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  transition: all 500ms ease;
+}
+
+.LogIn_btn {
+  border: none;
+}
+
+.LogIn_btn:hover {
+  background-color: rgba(209, 208, 208, 0.5);
+}
+
+.LogUp_btn {
+  color: #52c41a;
+  border: 1px solid #52c41a;
+}
+
+.LogUp_btn:hover {
+  background-color: #97e57058;
+}
+
+.App-header-btns .Create_btn {
+  margin-top: 11px;
+  vertical-align: middle;
+  width: 100px;
+  height: 25px;
+  color: #52c41a;
+  font-size: 14px;
+  line-height: 22px;
+  border: 1px solid #52c41a;
+}
+
+.Create_btn:hover {
+  background-color: #97e57058;
+}
+
+.LogOut_btn {
+  border: 1px solid rgba(0, 0, 0, 0.75);
+}
+
+.LogOut_btn:hover {
+  background-color: rgba(234, 36, 36, 0.5);
+}
+
+.Profile-info {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.Profile-info img {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+}
+
+.Profile-info span {
+  font-size: 18px;
+  line-height: 28px;
+  color: rgba(0, 0, 0, 0.85);
+  padding-right: 12px;
+  position: relative;
+} 
+
+.Profile-info span::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 10px;
+  margin: auto;
+  width: 0%;
+  content: '.';
+  color: transparent;
+  background: rgb(112, 112, 112);
+  height: 1px;
+  transition: all 500ms ease;
+}
+
+.Profile-info :hover::after {
+  width: 80%;
+}
+
+@media all and (max-width: 768px) {
+  .App-header {
+    height: 60px;
+    padding: 0 40px;
+  }
+  .App-header-btns button {
+    width: 70px;
+  }
+}

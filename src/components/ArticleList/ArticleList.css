@@ -1,0 +1,10 @@
+.Article-list {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding: 26px;
+}
+
+.Article-list li {
+  list-style-type: none;
+}

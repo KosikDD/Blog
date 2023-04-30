@@ -1,0 +1,14 @@
+.Pagination {
+  align-items: center;
+  background-color: inherit;
+  padding: 0 0 20px 0;
+}
+.ant-pagination .ant-pagination-item-active {
+  transition: all 500ms ease;
+  background-color: #1677ff;
+}
+
+.ant-pagination .ant-pagination-item-active a {
+  transition: all 500ms ease;
+  color: #fff;
+}
