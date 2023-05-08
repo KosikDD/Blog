@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import { Empty, message } from 'antd';
 import './App.css';
@@ -13,20 +14,17 @@ import EditProfile from '../EditProfile';
 import CreateArticle from '../CreateArticle';
 import RealworldDB from '../../service/realworlAPI';
 import SessionAPI from '../../service/sessionAPI';
+import { getDataArticle, getPage } from '../../store/dataSlice';
+import { setLogedin, getUserMail, getUserData } from '../../store/userSlice';
 
 const API = new RealworldDB();
 const sAPI = new SessionAPI();
 
-function App() {
+const App = () => {
+  const dispatch = useDispatch();
+  const Page = useSelector((state) => state.data.Page);
+  const IsLogedIn = useSelector((state) => state.user.Logedin);
   const [messageApi, contextHolder] = message.useMessage();
-  const [ArticlesCount, setArticlesCount] = useState(0);
-  const [ArticlesData, setArticlesData] = useState([]);
-  const [IsLogedIn, setIsLogedIn] = useState(false);
-  const [IsEdited, setIsEdited] = useState(false);
-  const [UserInfo, setUserInfo] = useState(null);
-  const [UserMail, setUserMail] = useState(null);
-  const [Page, setPage] = useState(1);
-
   const success = () => {
     messageApi.open({
       key: 'login',
@@ -70,93 +68,60 @@ function App() {
 
   function getData() {
     API.getArticles().then((data) => {
-      setArticlesData(data.articles);
-      setArticlesCount(data.articlesCount);
+      dispatch(getDataArticle(data));
     });
   }
 
   function getInfo() {
-    sAPI
-      .getUserInfo()
-      .then((data) => {
-        getData();
-        if (data) {
-          if (IsEdited) {
-            edited();
-            setIsEdited(false);
-          } else {
-            success();
-          }
-
-          setUserMail(data.user.email);
-          API.getProfile(data.user.username)
-            .then((Userdata) => {
-              setUserInfo(Userdata);
-            })
-            .catch((e) => {
-              console.log(e);
-            });
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    sAPI.getUserInfo().then((data) => {
+      if (data) {
+        dispatch(getUserMail(data.user.email));
+        API.getProfile(data.user.username).then((Userdata) => {
+          dispatch(getUserData(Userdata));
+        });
+      }
+    });
   }
 
   function auth() {
-    sAPI
-      .authSession()
-      .then((status) => {
-        if (status) {
-          setIsLogedIn(true);
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    sAPI.authSession().then((status) => {
+      if (status) {
+        dispatch(setLogedin(true));
+      }
+    });
   }
 
   useEffect(() => {
-    getData();
-  }, [Page]);
-
-  useEffect(() => {
     if (IsLogedIn) {
+      success();
       getInfo();
     } else {
       auth();
     }
-  }, [IsLogedIn, IsEdited]);
+  }, [IsLogedIn]);
 
-  function onClickPage(page) {
-    API.page = page;
+  useEffect(() => {
+    API.page = Page;
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    setPage(page);
-  }
+    getData();
+  }, [Page]);
 
   function onFormSubmit() {
     getData();
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    setIsLogedIn(true);
+    dispatch(setLogedin(true));
   }
 
   function onEditFormSubmit() {
-    getData();
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    setIsEdited(true);
+    edited();
+    getInfo();
   }
 
   function onCreateFormSubmit() {
-    getData();
     window.scrollTo({ top: 0, behavior: 'smooth' });
     created();
-  }
-
-  function onClickMainPage() {
     getData();
-    API.page = 1;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setPage(1);
   }
 
   function onDelete(slug) {
@@ -178,70 +143,65 @@ function App() {
     }
   }
 
+  function onMainPagge() {
+    dispatch(getPage(1));
+    getData();
+  }
+
   function onLogOut() {
     sAPI.LogOut().then(() => {
+      dispatch(setLogedin(false));
       getData();
       logout();
-      setIsLogedIn(false);
     });
   }
+
+  const main = ['/', '/articles'];
+  const article = '/articles/:slug';
+  const editarticle = '/articles/:slug/edit';
+  const signin = '/sign-in';
+  const signup = '/sign-up';
+  const profile = '/profile';
+  const newarticle = '/new-article';
 
   return (
     <div className="App">
       {contextHolder}
       <Router>
-        <Header
-          onClickMainPage={onClickMainPage}
-          IsLogedIn={IsLogedIn}
-          UserInfo={UserInfo}
-          onLogOut={onLogOut}
-        ></Header>
+        <Header onLogOut={onLogOut} onMainPage={onMainPagge}></Header>
         <div className="App-main">
           <Switch>
-            <Route path={['/', '/articles']} exact>
-              <ArtisleList articles={ArticlesData} IsLogedIn={IsLogedIn} onFavorite={onFavorite}></ArtisleList>
-              <Footer total={ArticlesCount} onClickPage={onClickPage} page={Page}></Footer>
+            <Route path={main} exact>
+              <ArtisleList onFavorite={onFavorite}></ArtisleList>
+              <Footer></Footer>
             </Route>
             <Route
-              path="/articles/:slug"
+              path={article}
               exact
               render={({ match }) => {
                 const slug = match.params.slug;
-                return (
-                  <ArticlePage
-                    slug={slug}
-                    IsLogedIn={IsLogedIn}
-                    UserInfo={UserInfo}
-                    onDelete={onDelete}
-                    onFavorite={onFavorite}
-                  ></ArticlePage>
-                );
+                return <ArticlePage slug={slug} onDelete={onDelete} onFavorite={onFavorite}></ArticlePage>;
               }}
             ></Route>
             <Route
-              path="/articles/:slug/edit"
+              path={editarticle}
               exact
               render={({ match }) => {
                 const slug = match.params.slug;
-                return <CreateArticle slug={slug} IsLogedIn={IsLogedIn} onFormSubmit={UserInfo}></CreateArticle>;
+                return <CreateArticle slug={slug}></CreateArticle>;
               }}
             ></Route>
-            <Route path="/sign-in" exact>
-              <LogInPage onFormSubmit={onFormSubmit} IsLogedIn={IsLogedIn}></LogInPage>
+            <Route path={signin} exact>
+              <LogInPage onFormSubmit={onFormSubmit}></LogInPage>
             </Route>
-            <Route path="/sign-up" exact>
-              <LogUpPage onFormSubmit={onFormSubmit} IsLogedIn={IsLogedIn}></LogUpPage>
+            <Route path={signup} exact>
+              <LogUpPage onFormSubmit={onFormSubmit}></LogUpPage>
             </Route>
-            <Route path="/profile" exact>
-              <EditProfile
-                onFormSubmit={onEditFormSubmit}
-                IsLogedIn={IsLogedIn}
-                UserInfo={UserInfo}
-                UserMail={UserMail}
-              ></EditProfile>
+            <Route path={profile} exact>
+              <EditProfile onFormSubmit={onEditFormSubmit}></EditProfile>
             </Route>
-            <Route path="/new-article" exact>
-              <CreateArticle onFormSubmit={onCreateFormSubmit} IsLogedIn={IsLogedIn}></CreateArticle>
+            <Route path={newarticle} exact>
+              <CreateArticle onFormSubmit={onCreateFormSubmit}></CreateArticle>
             </Route>
             <Route
               render={() => (
@@ -262,6 +222,6 @@ function App() {
       </Router>
     </div>
   );
-}
+};
 
 export default App;

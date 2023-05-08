@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 import './Header.css';
 
-function Header({ onClickMainPage, IsLogedIn, UserInfo, onLogOut }) {
+function Header({ onLogOut, onMainPage }) {
+  const IsLogedIn = useSelector((state) => state.user.Logedin);
+  const UserInfo = useSelector((state) => state.user.UserData);
   let username = '';
   let path = '';
   if (UserInfo !== null) {
@@ -36,7 +40,7 @@ function Header({ onClickMainPage, IsLogedIn, UserInfo, onLogOut }) {
   );
   return (
     <div className="App-header">
-      <Link to={'/'} className="App-header-title" onClick={onClickMainPage}>
+      <Link to={'/'} className="App-header-title" onClick={onMainPage}>
         {'Realworld Blog'}
       </Link>
       {IsLogedIn ? Authorized : unAuthorized}

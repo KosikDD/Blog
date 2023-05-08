@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { HeartOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import ReactMarkdown from 'react-markdown';
 import { Rate, Spin, Empty, Modal } from 'antd';
@@ -8,7 +9,7 @@ import RealworldDB from '../../service/realworlAPI';
 
 import './ArticlePage.css';
 
-const ArticlePage = ({ slug, IsLogedIn, UserInfo, onDelete, onFavorite }) => {
+const ArticlePage = ({ slug, onDelete, onFavorite }) => {
   const API = new RealworldDB();
   const [loading, setLoading] = useState(true);
   const [article, setArticle] = useState(null);
@@ -31,15 +32,7 @@ const ArticlePage = ({ slug, IsLogedIn, UserInfo, onDelete, onFavorite }) => {
   const spinner = loading ? <Spin size="large" className="Spin-Page" /> : null;
 
   const content =
-    !loading && !error ? (
-      <Article
-        article={article}
-        IsLogedIn={IsLogedIn}
-        UserInfo={UserInfo}
-        onDelete={onDelete}
-        onFavorite={onFavorite}
-      ></Article>
-    ) : null;
+    !loading && !error ? <Article article={article} onDelete={onDelete} onFavorite={onFavorite}></Article> : null;
 
   const onError = error ? (
     <Empty
@@ -63,7 +56,9 @@ const ArticlePage = ({ slug, IsLogedIn, UserInfo, onDelete, onFavorite }) => {
   );
 };
 
-const Article = ({ article, IsLogedIn, UserInfo, onDelete, onFavorite }) => {
+const Article = ({ article, onDelete, onFavorite }) => {
+  const IsLogedIn = useSelector((state) => state.user.Logedin);
+  const UserInfo = useSelector((state) => state.user.UserData);
   const [deleted, setDeleted] = useState(false);
   const { confirm } = Modal;
   const date = new Date(article.updatedAt);

@@ -1,5 +1,5 @@
-/* eslint-disable no-unused-vars */
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Redirect } from 'react-router-dom';
 import { message } from 'antd';
@@ -7,7 +7,10 @@ import { message } from 'antd';
 import SessionAPI from '../../service/sessionAPI';
 import './EditProfile.css';
 
-const EditProfile = ({ onFormSubmit, IsLogedIn, UserInfo, UserMail }) => {
+const EditProfile = ({ onFormSubmit }) => {
+  const IsLogedIn = useSelector((state) => state.user.Logedin);
+  const UserInfo = useSelector((state) => state.user.UserData);
+  const UserMail = useSelector((state) => state.user.UserMail);
   const API = new SessionAPI();
   const [messageApi, contextHolder] = message.useMessage();
   const error = (content, key) => {

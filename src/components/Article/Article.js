@@ -1,22 +1,13 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { HeartOutlined } from '@ant-design/icons';
 import { Rate } from 'antd';
 
 import './Article.css';
 
-const Article = ({
-  slug,
-  title,
-  tagList,
-  description,
-  favoritesCount,
-  updatedAt,
-  author,
-  favorited,
-  IsLogedIn,
-  onFavorite,
-}) => {
+const Article = ({ slug, title, tagList, description, favoritesCount, updatedAt, author, favorited, onFavorite }) => {
+  const IsLogedIn = useSelector((state) => state.user.Logedin);
   const date = new Date(updatedAt);
   const options = {
     year: 'numeric',

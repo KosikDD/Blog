@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Redirect } from 'react-router-dom';
 import { message } from 'antd';
@@ -8,7 +9,8 @@ import RealworldDB from '../../service/realworlAPI';
 
 import './CreateArticle.css';
 
-const CreateArticle = ({ onFormSubmit, IsLogedIn, slug }) => {
+const CreateArticle = ({ slug }) => {
+  const IsLogedIn = useSelector((state) => state.user.Logedin);
   const API = new RealworldDB();
   const sAPI = new SessionAPI();
   const [messageApi, contextHolder] = message.useMessage();
@@ -44,6 +46,11 @@ const CreateArticle = ({ onFormSubmit, IsLogedIn, slug }) => {
     handleSubmit,
   } = useForm({
     mode: 'onBlur',
+    values: {
+      title,
+      description,
+      body,
+    },
   });
 
   function editTitle(event) {
@@ -99,7 +106,6 @@ const CreateArticle = ({ onFormSubmit, IsLogedIn, slug }) => {
               error(`${el} - ${data.errors[el]}`, el);
             }
           } else {
-            onFormSubmit();
             setCreated(data.article.slug);
           }
         })
@@ -126,7 +132,6 @@ const CreateArticle = ({ onFormSubmit, IsLogedIn, slug }) => {
             <input
               type="text"
               placeholder="Title"
-              value={title}
               onChangeCapture={() => editTitle(event)}
               {...register('title', {
                 value: title,
@@ -141,7 +146,6 @@ const CreateArticle = ({ onFormSubmit, IsLogedIn, slug }) => {
             <input
               type="text"
               placeholder="Short description"
-              value={description}
               onChangeCapture={() => editDescription(event)}
               {...register('description', {
                 value: description,
@@ -154,7 +158,6 @@ const CreateArticle = ({ onFormSubmit, IsLogedIn, slug }) => {
               {errors?.body && <p id="ptext">{errors?.body?.message}</p>}
             </label>
             <textarea
-              value={body}
               onChangeCapture={() => editBody(event)}
               placeholder="Some Text"
               {...register('body', {

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Link, Redirect } from 'react-router-dom';
 import { message } from 'antd';
@@ -6,7 +7,8 @@ import { message } from 'antd';
 import SessionAPI from '../../service/sessionAPI';
 import './LogUpPage.css';
 
-const LogUpPage = ({ onFormSubmit, IsLogedIn }) => {
+const LogUpPage = ({ onFormSubmit }) => {
+  const IsLogedIn = useSelector((state) => state.user.Logedin);
   const API = new SessionAPI();
   const [messageApi, contextHolder] = message.useMessage();
   const [checkbox, setCheckbox] = useState(false);

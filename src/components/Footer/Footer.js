@@ -1,25 +1,29 @@
-import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Pagination } from 'antd';
+
+import { getPage } from '../../store/dataSlice';
 
 import './Footer.css';
 
-const Footer = (props) => {
-  const [current, setCurrent] = useState(1);
+const Footer = () => {
+  const dispatch = useDispatch();
+  const page = useSelector((state) => state.data.Page);
+  const articles = useSelector((state) => state.data.Data);
   const onChange = (page) => {
-    props.onClickPage(page);
-    setCurrent(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    dispatch(getPage(page));
   };
 
-  if (props.total === 0) {
+  if (articles.length === 0) {
     return null;
   } else {
     return (
       <Pagination
         className="Pagination"
-        current={current}
+        current={page}
         onChange={onChange}
-        defaultCurrent={props.page}
-        total={props.total}
+        defaultCurrent={1}
+        total={articles.articlesCount}
         defaultPageSize={5}
         pageSizeOptions={[5]}
         showSizeChanger={false}

@@ -78,16 +78,11 @@ export default class SessionAPI {
 
   //Session Auth
   async authSession() {
-    try {
-      const token = localStorage.getItem('user_token');
-      if (!token) {
-        console.log('no token');
-        return;
-      } else {
-        return 'success';
-      }
-    } catch (error) {
-      console.log(error);
+    const token = localStorage.getItem('user_token');
+    if (!token) {
+      return;
+    } else {
+      return 'success';
     }
   }
 
@@ -176,50 +171,35 @@ export default class SessionAPI {
   }
 
   async deleteArticle(slug) {
-    try {
-      const token = localStorage.getItem('user_token');
-      let NewURL = new URL(`api/articles/${slug}`, this._apiBase);
-      await fetch(NewURL.href, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    } catch (error) {
-      console.log(`Could't fetch delete article, received ${error}`);
-      throw error;
-    }
+    const token = localStorage.getItem('user_token');
+    let NewURL = new URL(`api/articles/${slug}`, this._apiBase);
+    await fetch(NewURL.href, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
 
   async favoritArticel(slug) {
-    try {
-      const token = localStorage.getItem('user_token');
-      let NewURL = new URL(`api/articles/${slug}/favorite`, this._apiBase);
-      await fetch(NewURL.href, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    } catch (error) {
-      console.log(`Could't fetch favorite article, received ${error}`);
-      throw error;
-    }
+    const token = localStorage.getItem('user_token');
+    let NewURL = new URL(`api/articles/${slug}/favorite`, this._apiBase);
+    await fetch(NewURL.href, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
 
   async unFavoritArticel(slug) {
-    try {
-      const token = localStorage.getItem('user_token');
-      let NewURL = new URL(`api/articles/${slug}/favorite`, this._apiBase);
-      await fetch(NewURL.href, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    } catch (error) {
-      console.log(`Could't fetch favorite article, received ${error}`);
-      throw error;
-    }
+    const token = localStorage.getItem('user_token');
+    let NewURL = new URL(`api/articles/${slug}/favorite`, this._apiBase);
+    await fetch(NewURL.href, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
 }
